@@ -24,16 +24,7 @@
 
   programs.firefox.enable = true;
 
-  programs.git = {
-    enable = true;
-    config = {
-      user.name = "Edwin Lundmark";
-      user.email = "edwin.lundmark@icloud.com";
-      init.defaultBranch = "main"; 
-    };
-
-  };
-
+  
   environment.systemPackages = with pkgs; [
     vim 
     gnumake

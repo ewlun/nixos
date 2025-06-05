@@ -10,8 +10,27 @@ in
   home-manager.users.edwin = {
     home.stateVersion = "24.11";
 
-    home.packages = [
-      emacs
+    programs.git = {
+      enable = true;
+      userName = "Edwin Lundmark";
+      userEmail = "edwin.lundmark@icloud.com";
+
+      ignores = [
+        "*~"
+        "*.swp"
+      ];
+      
+      extraConfig = {
+        init.defaultBranch = "main"; 
+      };
+    };
+
+    programs.emacs.enable = true;
+    
+    xdg.configFile."emacs/init.el".source = ./emacs/init.el;
+    home.file.".vimrc".text = "colorscheme blue";
+
+    home.packages = with pkgs; [
       libtool
       libvterm
 
