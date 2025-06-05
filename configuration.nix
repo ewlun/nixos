@@ -5,6 +5,7 @@
     [ 
       ./hardware-configuration.nix
       ./default.nix
+      ./home.nix
     ];
 
   users.users.edwin = {
@@ -15,6 +16,11 @@
       kdePackages.kate
     ];
   };
+
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  #services.xserver.windowManager.stumpwm.enable = true;
 
   programs.firefox.enable = true;
 
@@ -30,16 +36,10 @@
 
   environment.systemPackages = with pkgs; [
     vim 
-
-    emacs
-    libtool
-    libvterm
-
     gnumake
     gcc
     autoconf
     cmake
-
   ];
 
   # Enable the OpenSSH daemon.
