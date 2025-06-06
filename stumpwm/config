@@ -1,22 +1,9 @@
 ;; -*-lisp-*-
 
-;; (let ((asdf-init (merge-pathnames ".roswell/lisp/quicklisp/asdf.lisp"
-;; 				       (user-homedir-pathname))))
-;;   (when (probe-file asdf-init)
-;;     (load asdf-init)))
-
-;; (let ((quicklisp-init (merge-pathnames ".roswell/lisp/quicklisp/setup.lisp"
-;; 				       (user-homedir-pathname))))
-;;   (when (probe-file quicklisp-init)
-;;     (load quicklisp-init)))
-
-;; Here is a sample .stumpwmrc file
-
 (in-package :stumpwm)
 
 (set-module-dir (merge-pathnames ".config/stumpwm/modules/"
 		  (user-homedir-pathname)))
-
 
 (ql:quickload "slynk")
 
@@ -39,7 +26,6 @@
 (setf *ignore-wm-inc-hints* t)
 (setf *mouse-focus-policy* :click)
 
-
 (ql:quickload "clx-truetype")
 (load-module "ttf-fonts")
 (setf xft:*font-dirs* (append xft:*font-dirs* (list "/run/current-system/sw/share/X11/fonts")))
@@ -48,44 +34,39 @@
 ;; but putting it here means you will not forget in the future.
 (xft:cache-fonts)
 
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 20))
+(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 10))
 
 (defun show-battery-charge ()
-  (run-shell-command "sh /home/edwin/show_battery.sh" t))
+  (remove #\newline (run-shell-command "sh /home/edwin/show_battery.sh" t)))
 
-(setf *window-format* "%m%t")
+(setf *window-format* "%m%20t")
+
+(setf *time-modeline-string* "%a %e %b %k:%M")
+
 (setf *screen-mode-line-format*
       (list
-       "[^B^3%n^b] ^4%W"
+       "[^B^3%g^b] ^4%W"
        "^>"
        ;;"%m"
-       '(:eval (format nil "^5|Battery:~D" (show-battery-charge)))
-       "^5|%d"
+       '(:eval (format nil "^5| Battery:~D " (show-battery-charge)))
+       "^5| %d"
        ))
 
 (setf *mode-line-timeout* 2)
 (enable-mode-line (current-screen) (current-head) t)
 
-;; Read some doc
-(define-key *root-map* (kbd "d") "exec gv")
 ;; Browse somewhere
 (define-key *root-map* (kbd "b") "exec firefox")
 
-;; Web jump (works for DuckDuckGo and Imdb)
-(defmacro make-web-jump (name prefix)
-  `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " search: ")))
-    (nsubstitute #\+ #\Space search)
-    (run-shell-command (concatenate 'string ,prefix search))))
-
-(make-web-jump "duckduckgo" "firefox https://duckduckgo.com/?q=")
-(make-web-jump "imdb" "firefox http://www.imdb.com/find?q=")
-
-;; C-t M-s is a terrble binding, but you get the idea.
-(define-key *root-map* (kbd "M-s") "duckduckgo")
-(define-key *root-map* (kbd "i") "imdb")
-
-
-;;; Define window placement policy...
+(define-key *top-map* (kbd "s-1") "gselect 1")
+(define-key *top-map* (kbd "s-2") "gselect 2")
+(define-key *top-map* (kbd "s-3") "gselect 3")
+(define-key *top-map* (kbd "s-4") "gselect 4")
+(define-key *top-map* (kbd "s-5") "gselect 5")
+(define-key *top-map* (kbd "s-6") "gselect 6")
+(define-key *top-map* (kbd "s-7") "gselect 7")
+(define-key *top-map* (kbd "s-8") "gselect 8")
+(define-key *top-map* (kbd "s-9") "gselect 9")
 
 ;; Clear rules
 (clear-window-placement-rules)
