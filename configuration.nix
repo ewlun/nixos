@@ -23,7 +23,27 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  services.xserver.windowManager.stumpwm.enable = true;
+  services.xserver.windowManager.stumpwm = {
+    enable = true;
+    package = pkgs.writeScriptBin "stumpwm" ''
+      #!/bin/sh
+      #|-*- mode:lisp -*-|#
+      #|
+      exec ros -Q -- $0 "$@"
+      |#
+      (progn 
+        #+quicklisp (ql:quickload '(stumpwm) :silent t))
+      
+      (defpackage :ros.script.stumpwm.3749863733
+        (:use :cl))
+      (in-package :ros.script.stumpwm.3749863733)
+      
+      (defun main (&rest argv)
+        (declare (ignorable argv))
+        (stumpwm:stumpwm))
+    '';
+  };
+  
   services.picom = {
     enable = true;
     vSync = true;
@@ -46,6 +66,8 @@
 
   environment.variables = {
     MOZ_USE_XINPUT2 = 1;
+    PATH = "$HOME/.roswell/bin:$PATH";
+    ROSWELL_HOME = "$HOME/.roswell";
   };
 
   programs.firefox.enable = true;

@@ -1,5 +1,15 @@
 ;; -*-lisp-*-
-;;
+
+;; (let ((asdf-init (merge-pathnames ".roswell/lisp/quicklisp/asdf.lisp"
+;; 				       (user-homedir-pathname))))
+;;   (when (probe-file asdf-init)
+;;     (load asdf-init)))
+
+;; (let ((quicklisp-init (merge-pathnames ".roswell/lisp/quicklisp/setup.lisp"
+;; 				       (user-homedir-pathname))))
+;;   (when (probe-file quicklisp-init)
+;;     (load quicklisp-init)))
+
 ;; Here is a sample .stumpwmrc file
 
 (in-package :stumpwm)
