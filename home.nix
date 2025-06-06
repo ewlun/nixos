@@ -25,9 +25,11 @@ in
       };
     };
 
+    home.file.".config/stumpwm/config".source = ./stumpwm/config;
+
     programs.emacs.enable = true;
+    home.file.".config/emacs/init.el".source = ./emacs/init.el;
     
-    xdg.configFile."emacs/init.el".source = ./emacs/init.el;
     home.file.".vimrc".text = "colorscheme blue";
 
     home.packages = with pkgs; [
@@ -35,6 +37,7 @@ in
       libvterm
 
       roswell
+      btop
     ];
   };
 }
