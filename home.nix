@@ -26,6 +26,7 @@ in
     };
 
     home.file.".config/stumpwm/config".source = ./stumpwm/config;
+    #home.file.".background-image".source = ./wallpaper;
 
     programs.emacs.enable = true;
     home.file.".config/emacs/init.el".source = ./emacs/init.el;

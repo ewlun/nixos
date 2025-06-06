@@ -28,8 +28,10 @@
     enable = true;
     vSync = true;
   };
+
+  services.xserver.desktopManager.wallpaper.mode = "fill";
   
-  services.xserver.dpi = 144; # Real value is 242
+  services.xserver.dpi = 200; # Real value is 242. Bigger number, bigger UI
   services.xserver.enableTearFree = true;
 
   # Optional fine-tuning:
@@ -39,9 +41,12 @@
     scrollMethod = "twofinger";
     accelProfile = "adaptive";
     accelSpeed = "0.3"; # between -1 and 1
-    #accelStepScroll = 0.05;
+    accelStepScroll = 0.05;
   };
-  
+
+  environment.variables = {
+    MOZ_USE_XINPUT2 = 1;
+  };
 
   programs.firefox.enable = true;
   
@@ -53,7 +58,7 @@
     autoconf
     cmake
     python3
-    bc
+    busybox
   ];
 
   # Enable the OpenSSH daemon.

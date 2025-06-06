@@ -4,8 +4,10 @@
 
 (in-package :stumpwm)
 
+(ql:quickload "slynk")
+
 ;; change the prefix key to something else
-(set-prefix-key (kbd "C-z"))
+(set-prefix-key (kbd "s-a"))
 
 ;; prompt the user for an interactive command. The first arg is an
 ;; optional initial contents.
@@ -13,6 +15,14 @@
   (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
     (when cmd
       (eval-command cmd t))))
+
+(defcommand slynk (port) ((:string "Port number: "))
+  (sb-thread:make-thread
+   (lambda ()
+     (slynk:create-server :port (parse-integer port) :dont-close t))
+   :name "slynk-manual"))
+
+(setf *ignore-wm-inc-hints* t)
 
 ;; Read some doc
 (define-key *root-map* (kbd "d") "exec gv")
