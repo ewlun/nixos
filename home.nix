@@ -25,13 +25,21 @@ in
       };
     };
 
-    home.file.".config/stumpwm/config".source = ./stumpwm/config;
-    #home.file.".background-image".source = ./wallpaper;
+
+    xdg.configFile = {
+      "stumpwm/config".source = ./stumpwm/config;
+      "stumpwm/modules".source = builtins.fetchGit "https://github.com/stumpwm/stumpwm-contrib";
+
+      "emacs/init.el".source = ./emacs/init.el;
+    };
+
+    home.file = {
+      ".roswell/local-projects/zbp-ttf".source = builtins.fetchTarball "http://www.xach.com/lisp/zpb-ttf.tgz";
+      ".roswell/local-projects/clx-truetype".source = builtins.fetchGit "https://github.com/goose121/clx-truetype";
+    };
 
     programs.emacs.enable = true;
-    home.file.".config/emacs/init.el".source = ./emacs/init.el;
-    
-    home.file.".vimrc".text = "colorscheme blue";
+    #home.file.".background-image".source = ./wallpaper;
 
     home.packages = with pkgs; [
       libtool

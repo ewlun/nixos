@@ -70,6 +70,8 @@
     ROSWELL_HOME = "$HOME/.roswell";
   };
 
+  fonts.fontDir.enable = true;
+
   programs.firefox.enable = true;
   
   environment.systemPackages = with pkgs; [
@@ -81,6 +83,7 @@
     cmake
     python3
     busybox
+    terminus_font
   ];
 
   # Enable the OpenSSH daemon.
