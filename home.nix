@@ -16,6 +16,13 @@ in
   home-manager.users.edwin = {
     home.stateVersion = "25.05";
 
+    programs.bash = {
+      enable = true;
+      shellAliases = {
+        config = "cd ~/.config/nixos/";
+      };
+    };
+
     programs.git = {
       enable = true;
       userName = "Edwin Lundmark";

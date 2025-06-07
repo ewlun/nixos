@@ -17,3 +17,21 @@
    (lambda ()
      (slynk:create-server :port (parse-integer port) :dont-close t))
    :name "slynk-manual"))
+
+
+;; Just stole it from the source code
+(defcommand renumber-group (nt) ((:number "Number: "))
+  "Change the current group's number to the specified number. If another group
+is using the number, then the groups swap numbers."
+  (let ((nf (group-number (current-group)))
+        (win (find-if #'(lambda (win)
+                          (= (group-number win) nt))
+                      (screen-groups (current-screen)))))
+    ;; Is it already taken?
+    (if win
+        (progn
+          ;; swap the window numbers
+          (setf (group-number win) nf)
+          (setf (group-number (current-group)) nt))
+        ;; Just give the window the number
+        (setf (group-number (current-group)) nt))))
