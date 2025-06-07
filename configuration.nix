@@ -47,6 +47,12 @@
   services.picom = {
     enable = true;
     vSync = true;
+    settings = {
+      blur = {
+        method = "dual_kawase";
+        strength = 2;
+      };
+    };
   };
 
   services.xserver.desktopManager.wallpaper.mode = "fill";

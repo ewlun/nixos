@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  allFilesIn = dir: builtins.listToAttrs (
+    map (file: {
+      name = "${baseNameOf dir}/${file}";
+      value.source = dir + "/${file}";
+    }) (builtins.attrNames (builtins.readDir dir))
+  );
 in
 {
   imports = [
@@ -8,7 +14,7 @@ in
   ];
 
   home-manager.users.edwin = {
-    home.stateVersion = "24.11";
+    home.stateVersion = "25.05";
 
     programs.git = {
       enable = true;
@@ -25,21 +31,19 @@ in
       };
     };
 
-
-    xdg.configFile = {
-      "stumpwm/config".source = ./stumpwm/config;
-      "stumpwm/modules".source = builtins.fetchGit "https://github.com/stumpwm/stumpwm-contrib";
-
+    xdg.configFile = allFilesIn ./stumpwm // {
       "emacs/init.el".source = ./emacs/init.el;
     };
 
     home.file = {
       ".roswell/local-projects/zbp-ttf".source = builtins.fetchTarball "http://www.xach.com/lisp/zpb-ttf.tgz";
       ".roswell/local-projects/clx-truetype".source = builtins.fetchGit "https://github.com/goose121/clx-truetype";
+
+      ".config/stumpwm/modules".source = builtins.fetchGit "https://github.com/stumpwm/stumpwm-contrib";
     };
 
     programs.emacs.enable = true;
-    #home.file.".background-image".source = ./wallpaper;
+    home.file.".background-image".source = ./wallpapers/snowy;
 
     home.packages = with pkgs; [
       libtool
@@ -47,6 +51,7 @@ in
 
       roswell
       btop
+      kitty
     ];
   };
 }
