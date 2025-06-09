@@ -37,3 +37,25 @@
 (xft:cache-fonts)
 
 (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 10))
+
+(load-module "swm-gaps")
+
+(defvar *enable-gaps* t)
+
+(defun one-window-no-gaps (&rest arg)
+  (declare (ignore arg))
+  (when *enable-gaps*
+    (if (= 1 (length (group-windows (current-group))))
+       (swm-gaps:toggle-gaps-off)
+       (swm-gaps:toggle-gaps-on))))
+
+(add-hook *new-window-hook* #'one-window-no-gaps)
+(add-hook *new-frame-hook* #'one-window-no-gaps)
+(add-hook *destroy-window-hook* #'one-window-no-gaps)
+(add-hook *focus-group-hook* #'one-window-no-gaps)
+
+(setf swm-gaps:*inner-gaps-size* 10)
+(setf swm-gaps:*outer-gaps-size* 0)
+(setf swm-gaps:*head-gaps-size* 0)
+
+(when *enable-gaps* (swm-gaps:toggle-gaps-on))

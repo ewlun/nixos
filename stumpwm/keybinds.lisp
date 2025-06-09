@@ -25,7 +25,10 @@
 (define-key *top-map* (kbd "s-k") "move-focus up")
 (define-key *top-map* (kbd "s-j") "move-focus down")
 
+(define-key *top-map* (kbd "s-r") "spawn-and-split")
+(define-key *top-map* (kbd "s-C") "kill-and-remove")
+
 ;; Launching
-(define-key *top-map* (kbd "s-RET") "exec kitty")
-(define-key *root-map* (kbd "b") "exec firefox")
+(define-key *top-map* (kbd "s-RET") "spawn-and-split kitty")
+(define-key *root-map* (kbd "b") "spawn-and-split firefox")
 (define-key *root-map* (kbd "s-x") "colon")

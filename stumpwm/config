@@ -8,6 +8,7 @@
 
 (load-config "setup.lisp")
 (load-config "appearance.lisp")
+(load-config "commands.lisp")
 (load-config "modeline.lisp")
 (load-config "keybinds.lisp")
 

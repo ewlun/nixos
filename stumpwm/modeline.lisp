@@ -3,7 +3,13 @@
 
 (setf *window-format* "%m%20t")
 
-(setf *time-modeline-string* "%a %e %b %k:%M")
+(defun time-day-of-month-no-pad ()
+  (format nil "~D" (getf (time-plist) :dom)))
+
+(setf *time-format-string-alist*
+      (append *time-format-string-alist* '((#\E time-day-of-month-no-pad))))
+
+(setf *time-modeline-string* "%a %E %b %k:%M")
 
 (setf *screen-mode-line-format*
       (list
