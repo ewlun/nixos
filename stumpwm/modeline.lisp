@@ -23,4 +23,10 @@
       *mode-line-pad-y* 10)
 
 (setf *mode-line-timeout* 10)
+
+
+(defun set-alpha-bits (color alpha)
+  (+ (logand color (- (ash 1 24) 1))
+     (ash alpha 24)))
+
 (enable-mode-line (current-screen) (current-head) t)

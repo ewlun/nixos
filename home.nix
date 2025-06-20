@@ -59,6 +59,8 @@ in
       roswell
       btop
       kitty
+      pamixer
+      pulsemixer
     ];
   };
 }

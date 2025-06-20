@@ -10,6 +10,7 @@
 (load-config "appearance.lisp")
 (load-config "commands.lisp")
 (load-config "modeline.lisp")
+(load-config "utils.lisp")
 (load-config "keybinds.lisp")
 
 (setf *input-window-gravity* :center

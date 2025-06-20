@@ -45,12 +45,13 @@
 (defun one-window-no-gaps (&rest arg)
   (declare (ignore arg))
   (when *enable-gaps*
-    (if (= 1 (length (group-windows (current-group))))
+    (if (< 2 (length (group-frames (current-group))))
        (swm-gaps:toggle-gaps-off)
        (swm-gaps:toggle-gaps-on))))
 
 (add-hook *new-window-hook* #'one-window-no-gaps)
-(add-hook *new-frame-hook* #'one-window-no-gaps)
+(add-hook *split-frame-hook* #'one-window-no-gaps)
+(add-hook *focus-frame-hook* #'one-window-no-gaps)
 (add-hook *destroy-window-hook* #'one-window-no-gaps)
 (add-hook *focus-group-hook* #'one-window-no-gaps)
 
